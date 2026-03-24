@@ -30,7 +30,8 @@
               },
               "src/assets"
             ],
-            "styles": ["src/styles.scss", "src/theme.scss"]
+            "styles": ["src/styles.scss", "src/theme.scss"],
+            "outputPath": "docs/"
           },
           "configurations": {
             "production": {
@@ -60,16 +61,19 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "components:build:production"
+              "buildTarget": "tensegrity:build:production"
             },
             "development": {
-              "buildTarget": "components:build:development"
+              "buildTarget": "tensegrity:build:development"
             }
           },
           "defaultConfiguration": "development"
         },
         "test": {
           "builder": "@angular/build:unit-test"
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }
