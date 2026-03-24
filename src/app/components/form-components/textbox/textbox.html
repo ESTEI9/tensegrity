@@ -1,0 +1,27 @@
+@let ctrl = control();
+@if (parentFormGroup.form) {
+  <ng-container [formGroup]="parentFormGroup.form">
+    @if (formArray) {
+      <ng-container formArrayName="formArray">
+        <ng-container [ngTemplateOutlet]="textBoxTemplate"></ng-container>
+      </ng-container>
+    } @else {
+      <ng-container [ngTemplateOutlet]="textBoxTemplate"></ng-container>
+    }
+  </ng-container>
+} @else {
+  <ng-container [ngTemplateOutlet]="textBoxTemplate"></ng-container>
+}
+
+<ng-template #textBoxTemplate>
+  @if (ctrl.label) {
+    <label>{{ ctrl.label }}</label>
+  }
+  <div
+    class="text-box"
+    #textBox
+    [innerText]="ctrl.initialValue ?? ''"
+    [contentEditable]="true"
+    (keyup)="updateValue()"
+  ></div>
+</ng-template>

@@ -1,0 +1,52 @@
+:host {
+  position: relative;
+
+  &[disabled='true'] {
+    app-textbox {
+      pointer-events: none;
+    }
+  }
+
+  app-chip {
+    background-color: var(--blue-40);
+    margin: 0.25rem;
+    font-size: small;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+
+  .select-list {
+    background: var(--white-20);
+    border-radius: 0.25rem;
+    max-height: 0;
+    overflow: hidden;
+
+    &.open {
+      border: 1px solid var(--white-30);
+      max-height: 500px;
+      overflow-y: auto;
+      z-index: 1;
+    }
+
+    .select-item {
+      padding: 0.5rem;
+      color: var(--text-color);
+      cursor: pointer;
+      border-bottom: 1px solid var(--white-25);
+
+      &.disabled {
+        pointer-events: none;
+      }
+
+      &:hover {
+        background-color: var(--white-25);
+      }
+
+      &:last-child {
+        border-bottom: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,26 @@
+@let ctrl = control();
+@if (ctrl.label) {
+  <label>{{ ctrl.label }}</label>
+}
+
+<app-textbox
+  [control]="textControl"
+  (click)="listOpen = true"
+  (update)="searchList($event)"
+></app-textbox>
+
+<div class="select-list" [class.open]="listOpen">
+  @if (filteredOptions.length) {
+    @for (item of filteredOptions; track item.value) {
+      <div
+        class="select-item"
+        [class.selected]="item.value === value?.value"
+        (click)="selectOption(item)"
+      >
+        {{ item.displayValue ?? item.value }}
+      </div>
+    }
+  } @else {
+    <div class="select-item disabled">No Available Options</div>
+  }
+</div>

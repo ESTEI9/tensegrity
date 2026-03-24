@@ -1,0 +1,42 @@
+@let conf = config();
+@if (conf && formGroup) {
+  <ng-container [formGroup]="formGroup">
+    <ng-container formArrayName="formArray">
+      @for (control of controls; track $index) {
+        @let ctrl = getControlConfig($index);
+        @if (ctrl) {
+          @switch (ctrl.controlType) {
+            @case ('text') {
+              <app-textbox [control]="ctrl" (update)="control.setValue($event)"></app-textbox>
+            }
+            @case ('select') {
+              @let selectCtrl = getConfigAsSelect(ctrl);
+              <app-select
+                [disabled]="control.disabled"
+                [control]="selectCtrl"
+                (select)="control.setValue($event)"
+              ></app-select>
+            }
+            @case ('select-builder') {
+              @let selectBuilderCtrl = getConfigAsSelectBuilder(ctrl);
+              <app-select-builder
+                [control]="selectBuilderCtrl"
+                (options)="setOptionsFor(selectBuilderCtrl.targetName, $event, control)"
+              ></app-select-builder>
+            }
+            @case ('multi-select') {
+              @let multiSelectCtrl = getConfigAsMultiSelect(ctrl);
+              <app-multi-select
+                [disabled]="control.disabled"
+                [control]="multiSelectCtrl"
+                (select)="control.setValue($event)"
+              ></app-multi-select>
+            }
+          }
+        } @else {
+          Cannot find a control at index {{ $index }}
+        }
+      }
+    </ng-container>
+  </ng-container>
+}

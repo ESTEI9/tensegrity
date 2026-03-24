@@ -1,0 +1,7 @@
+@use './theme/lexend-font';
+@use './theme/roboto-font';
+
+:root {
+  --heading-font: 'Lexend', serif;
+  --body-font: 'Roboto', sans-serif;
+}

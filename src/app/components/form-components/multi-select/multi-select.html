@@ -1,0 +1,25 @@
+@let ctrl = control();
+@if (ctrl.label) {
+  <label>{{ ctrl.label }}</label>
+}
+@for (option of value; track option.value) {
+  <app-chip (delete)="deselectOption(option)">{{ option.displayValue ?? option.value }}</app-chip>
+}
+<app-textbox
+  #searchBox
+  [class.disabled]="disabled"
+  [control]="searchControl"
+  (click)="listOpen = true"
+  (update)="setFilteredOptions($event)"
+></app-textbox>
+<div class="select-list" [class.open]="listOpen">
+  @if (filteredOptions.length) {
+    @for (option of filteredOptions; track option.value) {
+      <div class="select-item" (click)="selectOption(option)">
+        {{ option.displayValue ?? option.value }}
+      </div>
+    }
+  } @else {
+    <div class="select-item disabled">No Available Options</div>
+  }
+</div>

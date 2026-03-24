@@ -1,0 +1,27 @@
+:host {
+  min-width: 100px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 0.5rem;
+
+  .text-box {
+    height: 100%;
+    background: var(--white-10);
+    border-radius: 0.25rem;
+    padding: 0.5rem 1rem;
+    color: var(--text-color);
+    border: 1px solid var(--white-20);
+
+    &:focus,
+    &:focus-within {
+      outline: none;
+      border-color: var(--blue-50);
+    }
+  }
+
+  &.disabled {
+    .text-box {
+      background-color: var(--white-20);
+    }
+  }
+}

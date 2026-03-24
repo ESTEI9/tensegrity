@@ -1,0 +1,16 @@
+:host {
+  display: inline-flex;
+  padding: 0.5em 1em;
+  border-radius: 2rem;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  align-items: center;
+  justify-content: space-between;
+
+  app-icon {
+    margin-left: 0.5rem;
+    cursor: pointer;
+  }
+}

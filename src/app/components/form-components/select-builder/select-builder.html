@@ -1,0 +1,28 @@
+@let ctrl = control();
+<h4>{{ ctrl?.label ?? 'Options' }}</h4>
+
+<div class="form">
+  <app-textbox #value [control]="valueCtrl" (update)="pendingOption.value = $event"></app-textbox>
+  <app-textbox
+    #displayValue
+    [control]="displayValueCtrl"
+    (update)="pendingOption.displayValue = $event"
+  ></app-textbox>
+  <div style="display: flex; justify-content: flex-end">
+    <button
+      [disabled]="!pendingOption.value"
+      class="add-option"
+      (click)="addOption()"
+      title="Add to options list"
+    >
+      <app-icon>add</app-icon>
+    </button>
+  </div>
+</div>
+<div class="options">
+  @for (option of options.values(); track option) {
+    <app-chip (delete)="deleteOption(option)" [title]="option.value">{{
+      option.displayValue ?? option.value
+    }}</app-chip>
+  }
+</div>
