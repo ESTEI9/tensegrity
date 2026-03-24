@@ -30,8 +30,7 @@
               },
               "src/assets"
             ],
-            "styles": ["src/styles.scss", "src/theme.scss"],
-            "outputPath": "docs/"
+            "styles": ["src/styles.scss", "src/theme.scss"]
           },
           "configurations": {
             "production": {
