@@ -76,6 +76,27 @@ body {
       border: 1px outset rgba(255, 255, 255, 0.6);
     }
 
+    &.primary {
+      background-color: var(--blue-40);
+      color: var(--text-color);
+
+      &:hover {
+        background-color: var(--blue-50);
+      }
+    }
+
+    &.icon {
+      border: none;
+      background-color: transparent;
+      display: flex;
+      width: fit-content;
+
+      app-icon {
+        display: inline-flex;
+        margin-right: 0.5rem;
+      }
+    }
+
     &.submit {
       color: var(--body-color);
       background: var(--green-30);

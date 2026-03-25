@@ -6,7 +6,7 @@
   },
   "newProjectRoot": "projects",
   "projects": {
-    "components": {
+    "tensegrity": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -47,12 +47,14 @@
                   "maximumError": "8kB"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "baseHref": "/tensegrity/"
             },
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "baseHref": "/"
             }
           },
           "defaultConfiguration": "production"

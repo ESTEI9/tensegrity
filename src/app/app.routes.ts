@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { FormGenerator } from './router-outlets/form-generator/form-generator';
+import { Home } from './router-outlets/home/home';
 
 export const routes: Routes = [
   {
@@ -11,6 +12,6 @@ export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: 'form',
+    component: Home,
   },
 ];

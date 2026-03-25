@@ -1,4 +1,4 @@
-import { Component, ElementRef, signal, ViewChild } from '@angular/core';
+import { Component, ElementRef, inject, signal, ViewChild } from '@angular/core';
 import { Form } from '../../components';
 import {
   FormArray,
@@ -19,10 +19,12 @@ import {
 } from '../../models';
 import { Select } from '../../components/form-components';
 import { shareReplay, tap } from 'rxjs';
+import { Icon } from '../../components/icon/icon';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-form-generator',
-  imports: [Form, FormsModule, ReactiveFormsModule, Select],
+  imports: [Form, FormsModule, ReactiveFormsModule, Select, Icon],
   templateUrl: './form-generator.html',
   styleUrl: './form-generator.scss',
   providers: [FormGroupDirective],
@@ -32,6 +34,8 @@ export class FormGenerator {
   @ViewChild('configForm') configForm!: Form;
   @ViewChild('outputForm') outputForm!: Form;
   @ViewChild('output') output!: ElementRef<HTMLDivElement>;
+
+  protected router = inject(Router);
 
   controlTypes = ControlTypes;
 
