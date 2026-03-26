@@ -31,7 +31,7 @@ export class Icon implements AfterViewInit {
       head.appendChild(link);
     } else {
       const currentUrl = stylesheet.getAttribute('href');
-      const iconNames = currentUrl!.split('&icon_names=')!.slice(1);
+      const iconNames = currentUrl!.split('&icon_names=')![1].split(',');
 
       if (iconNames.includes(iconName)) return;
 
