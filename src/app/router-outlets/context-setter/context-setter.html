@@ -1,0 +1,40 @@
+<div class="documentation">
+  <button class="icon" (click)="router.navigateByUrl('/')">
+    <app-icon>arrow_back</app-icon>Home
+  </button>
+  <h1>Context</h1>
+
+  A context component is one that can switch internal components (context) at runtime. Why would we
+  need such a thing?
+
+  <h4>Keeps DOM Small</h4>
+  Switching context prevents bloat from hiding/showing different components, especially when they
+  don't need to keep an internal state
+
+  <h4>Internal Tracking</h4>
+  You can maintain a single pointer as a variable to know where you are in a flow. This can reduce
+  the number of if/switch statements.
+
+  <h4>Lazy Loading</h4>
+  You load the content when you need it; it doesn't have to be pre-rendered or preserved (though it
+  can with multiple context components, if you wish).
+</div>
+<div class="output">
+  <h3>Options</h3>
+  <div class="buttons-container">
+    @for (context of componentStrings; track context) {
+      <button
+        [ngClass]="{ primary: stringContext === context, reset: stringContext !== context }"
+        (click)="setInstance(context)"
+      >
+        {{ context }}
+      </button>
+    }
+  </div>
+
+  <app-context
+    [component]="currentContext"
+    [content]="projectedContent"
+    (componentInstance)="setOutputs($event)"
+  ></app-context>
+</div>

@@ -19,4 +19,20 @@
     max-width: 500px;
     margin-bottom: 1rem;
   }
+
+  .buttons {
+    display: flex;
+
+    button {
+      margin: 0.5rem 1rem;
+
+      &:first-child {
+        margin-left: 0;
+      }
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
 }
