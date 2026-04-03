@@ -1,0 +1,13 @@
+@let modalConfig = config();
+@if (modalConfig.hasCloseButton) {
+  <div class="header">
+    <div class="actions">
+      <button class="icon" (click)="close()"><app-icon>close</app-icon></button>
+    </div>
+  </div>
+}
+<app-context
+  [component]="component()"
+  [componentInputs]=""
+  (componentInstance)="refHandler($event)"
+></app-context>

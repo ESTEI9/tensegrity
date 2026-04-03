@@ -2,6 +2,7 @@ import { Routes } from '@angular/router';
 import { FormGenerator } from './router-outlets/form-generator/form-generator';
 import { Home } from './router-outlets/home/home';
 import { ContextSetter } from './router-outlets/context-setter/context-setter';
+import { ServiceBasedModal } from './router-outlets/service-based-modal/service-based-modal';
 
 export const routes: Routes = [
   {
@@ -15,6 +16,12 @@ export const routes: Routes = [
     pathMatch: 'full',
     component: ContextSetter,
     title: 'Context',
+  },
+  {
+    path: 'modal',
+    pathMatch: 'full',
+    component: ServiceBasedModal,
+    title: 'Modal',
   },
   {
     path: '',

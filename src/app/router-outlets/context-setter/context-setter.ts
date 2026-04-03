@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, ComponentRef, inject, OnInit, Type } from '@angular/core';
 import { Context } from '../../components/context/context';
 import { Chip } from '../../components/chip/chip';
 import { Icon } from '../../components/icon/icon';
@@ -46,8 +46,8 @@ export class ContextSetter implements OnInit {
     })();
   }
 
-  setOutputs(instance$: unknown) {
-    const instance = instance$ as ComponentType;
+  setOutputs(ref$: ComponentRef<unknown>) {
+    const instance = ref$.instance as ComponentType;
 
     if (instance instanceof Chip) {
       (instance as Chip).delete.subscribe(() => {

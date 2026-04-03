@@ -20,7 +20,7 @@ export class Context<T> implements OnChanges {
   component = input.required<T>();
   content = input<unknown>();
   componentInputs = input<{ [x: string]: unknown }>();
-  componentInstance = output<T>();
+  componentInstance = output<ComponentRef<T>>();
 
   private contentRef: ViewContainerRef | undefined;
   private componentRef: ComponentRef<unknown> | undefined;
@@ -47,7 +47,7 @@ export class Context<T> implements OnChanges {
       projectableNodes,
     }) as ComponentRef<T>;
     this.setComponentInputs();
-    this.componentInstance.emit(this.componentRef.instance as T);
+    this.componentInstance.emit(this.componentRef as ComponentRef<T>);
   }
 
   // TODO: Verify works with content projected slots

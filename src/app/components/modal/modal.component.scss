@@ -1,0 +1,42 @@
+:host {
+  height: 70vh;
+  width: 60vw;
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--white-60);
+  border-radius: 0.5rem;
+  position: absolute;
+  left: 50%;
+  z-index: 1;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  background-color: var(--white-20);
+
+  .header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 0.5rem;
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      flex-basis: 0;
+
+      button {
+        padding: 0.5rem;
+
+        app-icon {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
+  & > app-context {
+    display: block;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+  }
+}
