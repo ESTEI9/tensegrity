@@ -18,9 +18,10 @@ import { ContentDirective } from '../../directives/content';
 })
 export class Context<T> implements OnChanges {
   component = input.required<T>();
-  content = input<unknown>();
+  /** any projectable content for ng-content */
+  content = input<Node | Node[] | string>();
   componentInputs = input<{ [x: string]: unknown }>();
-  componentInstance = output<ComponentRef<T>>();
+  componentInstance = output<ComponentRef<Type<T>>>();
 
   private contentRef: ViewContainerRef | undefined;
   private componentRef: ComponentRef<unknown> | undefined;
@@ -47,7 +48,7 @@ export class Context<T> implements OnChanges {
       projectableNodes,
     }) as ComponentRef<T>;
     this.setComponentInputs();
-    this.componentInstance.emit(this.componentRef as ComponentRef<T>);
+    this.componentInstance.emit(this.componentRef as ComponentRef<Type<T>>);
   }
 
   // TODO: Verify works with content projected slots

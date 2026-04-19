@@ -1,0 +1,16 @@
+@let tabsConfig = config();
+@if (tabsLoaded()) {
+  <div class="labels">
+    @for (tab of tabsConfig.tabs; track tab.tabName) {
+      <div
+        class="tab-label"
+        [class.active]="activeTabName === tab.tabName"
+        [class.disabled]="tab.disabled"
+        (click)="switchTab(tab.tabName)"
+      >
+        {{ tab.tabName }}
+      </div>
+    }
+  </div>
+}
+<div #tabs id="tabsContainer" content (viewContainerRef)="setTabs($event)"></div>

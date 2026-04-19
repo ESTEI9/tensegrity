@@ -50,7 +50,7 @@ export class Textbox implements OnInit, ControlValueAccessor {
   protected parentFormGroup = inject(FormGroupDirective);
   private sanitizer = inject(DomSanitizer);
 
-  private disabled = false;
+  protected disabled = false;
   protected value: string | undefined;
   formArray: FormArray<FormControl<unknown>> | undefined;
 

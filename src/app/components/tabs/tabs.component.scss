@@ -1,0 +1,36 @@
+:host {
+  .labels {
+    display: flex;
+
+    .tab-label {
+      padding: 0.5rem 1rem;
+      background-color: var(--white-20);
+      margin-right: 2px;
+      cursor: pointer;
+      border-top-right-radius: 0.25rem;
+      border-top-left-radius: 0.25rem;
+
+      &:last-child {
+        border-right: 0;
+      }
+
+      &.active {
+        background-color: var(--blue-30);
+      }
+    }
+  }
+
+  #tabsContainer {
+    background-color: var(--white-20);
+    padding: 1rem;
+    min-height: 300px;
+
+    ::ng-deep {
+      .hidden {
+        display: block;
+        height: 0;
+        overflow: hidden;
+      }
+    }
+  }
+}

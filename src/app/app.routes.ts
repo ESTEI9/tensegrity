@@ -3,6 +3,7 @@ import { FormGenerator } from './router-outlets/form-generator/form-generator';
 import { Home } from './router-outlets/home/home';
 import { ContextSetter } from './router-outlets/context-setter/context-setter';
 import { ServiceBasedModal } from './router-outlets/service-based-modal/service-based-modal';
+import { TabsRouteComponent } from './router-outlets/tabs-route/tabs-route.component';
 
 export const routes: Routes = [
   {
@@ -22,6 +23,12 @@ export const routes: Routes = [
     pathMatch: 'full',
     component: ServiceBasedModal,
     title: 'Modal',
+  },
+  {
+    path: 'tabs',
+    pathMatch: 'full',
+    component: TabsRouteComponent,
+    title: 'Tabs',
   },
   {
     path: '',

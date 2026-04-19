@@ -37,7 +37,8 @@ body {
     }
   }
 
-  label {
+  label,
+  legend {
     font-weight: bold;
     letter-spacing: 0.125rem;
     text-transform: uppercase;
@@ -46,6 +47,10 @@ body {
     margin-bottom: 0.25rem;
     font-family: var(--heading-font);
     color: var(--white);
+  }
+
+  legend {
+    display: contents;
   }
 
   button {

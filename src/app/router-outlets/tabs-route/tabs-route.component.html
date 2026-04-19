@@ -1,0 +1,82 @@
+<div class="documentation">
+  <button class="icon" (click)="router.navigateByUrl('/')">
+    <app-icon>arrow_back</app-icon>Home
+  </button>
+  <h1>Tabs</h1>
+  Often times, I find that tabbing systems create a large DOM footprint and don't take advantage of
+  Angular's latent capabilities to dynamically load/unload content. In addition, most tabbing
+  systems have a very fixed layout, where a developer needs to play with a lot of customized CSS to
+  bring about a desired appearance. <br /><br />
+  While there is additional room for configuration, these controls allow you to view how static
+  content vs dynamic content can be generated, then controlled, outside or inside the tabs.
+  <br />
+  <h3>Configuration</h3>
+  <form [formGroup]="tabsConfigForm" class="tabs-form">
+    <fieldset>
+      <legend>Lazy Loaded</legend>
+      <input
+        type="radio"
+        [value]="true"
+        formControlName="lazyLoaded"
+        [checked]="tabsConfigForm.controls.lazyLoaded.value === true"
+      />
+      <input
+        type="radio"
+        [value]="false"
+        formControlName="lazyLoaded"
+        [checked]="tabsConfigForm.controls.lazyLoaded.value === false"
+      />
+    </fieldset>
+    @if (tabsConfigForm.controls.lazyLoaded.value === true) {
+      <fieldset>
+        <legend>Persist Content</legend>
+        <input
+          type="radio"
+          [value]="true"
+          formControlName="persistOnSwitch"
+          [checked]="tabsConfigForm.controls.persistOnSwitch.value === true"
+        />
+        <input
+          type="radio"
+          [value]="false"
+          formControlName="persistOnSwitch"
+          [checked]="tabsConfigForm.controls.persistOnSwitch.value === false"
+        />
+      </fieldset>
+    }
+    <app-select
+      style="margin: 1rem 0"
+      [control]="initialTabControl"
+      (select)="setActiveTab($event.value)"
+    ></app-select>
+    <button (click)="loadTabs()" class="primary">Generate Tabs</button>
+  </form>
+  @if (tabsConfig && activeTab === 'Tab 2') {
+    <app-textbox
+      #tab2Control
+      style="margin-top: 1rem"
+      [control]="tab2InputControl"
+      (update)="tab2Data = $event"
+    ></app-textbox>
+    <div style="display: flex; justify-content: flex-end">
+      <button class="primary" style="margin-right: 1rem" (click)="updateTab2()">Update</button>
+      <button
+        class="reset"
+        (click)="tab2Content.next('This is some dynamic content'); tab2Control.clear()"
+      >
+        Reset
+      </button>
+    </div>
+  }
+</div>
+<div class="output">
+  @if (tabsConfig) {
+    <app-tabs
+      [config]="tabsConfig"
+      (outputs)="handleOutputs($event)"
+      (switch)="activeTab = $event.to"
+    ></app-tabs>
+  } @else {
+    <div class="placeholder">Tabs will appear here.</div>
+  }
+</div>

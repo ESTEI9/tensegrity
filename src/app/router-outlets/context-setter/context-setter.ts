@@ -18,7 +18,7 @@ export class ContextSetter implements OnInit {
   protected componentStrings = ['chip', 'icon'] as const;
   protected currentContext: ComponentType | undefined;
   protected stringContext: string | undefined;
-  protected projectedContent: unknown;
+  protected projectedContent: Node | Node[] | string | undefined;
 
   protected router = inject(Router);
 

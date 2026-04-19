@@ -19,6 +19,7 @@
   }
   <div
     class="text-box"
+    [class.disabled]="disabled"
     #textBox
     [innerText]="ctrl.initialValue ?? ''"
     [contentEditable]="true"
