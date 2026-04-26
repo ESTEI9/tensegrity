@@ -8,10 +8,18 @@ import { TabsRouteComponent } from '../tabs-route/tabs-route.component';
 
 @Component({
   template: `
-    <div class="definition">
-      A structural principle using compressed components (which do not touch each other) inside a
-      network of continuous tension.
-    </div>
+    A structural principle using compressed components (which do not touch each other) inside a
+    network of continuous tension.
+  `,
+  styles: `
+    :host {
+      position: absolute;
+      top: 20vh;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      font-family: var(--heading-font);
+    }
   `,
 })
 class StartPage {}
