@@ -1,27 +1,40 @@
 <div class="documentation">
-  <button class="icon" (click)="router.navigateByUrl('/')">
-    <app-icon>arrow_back</app-icon>Home
-  </button>
-  <h1>Form Generator</h1>
-  <div class="form">
-    <app-select
-      #typeSelect
-      [control]="typeControl"
-      (select)="setControlConfig($event)"
-    ></app-select>
-    @if (controlConfig) {
-      <hr style="margin: 1rem 0" />
-      <h3>Config for {{ selectedType }}</h3>
-      <app-form #configForm [config]="controlConfig" (form)="setFormListener($event)"></app-form>
-    }
-  </div>
-  <div class="footer">
-    <button class="reset" (click)="reset()">Reset</button>
-    <button class="submit" [disabled]="addDisabled" (click)="addControl()">Add</button>
-  </div>
+  <h1>Dynamic Forms</h1>
+  Forms can be generated using a static config & flexible exposed functions such as
+  <code>addControl()</code>. <br /><br />
+  Doing this enables users to create forms that can build in the DOM as opposed to show or hide form
+  fields based on user input.
+  <br /><br />Changing controls notifies the parent component, which then can listen to the
+  resultant form's controls <code>valueChanges</code> observable for custom callbacks.
 </div>
-<div class="outputForm">
-  <app-form #outputForm [config]="outputFormConfig" (reset)="outputValue = undefined"></app-form>
+<div class="output">
+  <div class="config-form">
+    <div class="title" (click)="toggleForm()">
+      <h3>Form Generator</h3>
+      <app-icon [class.inverted]="!formExpanded"> keyboard_arrow_up </app-icon>
+    </div>
+    <div class="form" [class.hidden]="!formExpanded">
+      <app-select
+        #typeSelect
+        [control]="typeControl"
+        (select)="setControlConfig($event)"
+      ></app-select>
+      @if (controlConfig) {
+        <app-form #configForm [config]="controlConfig" (form)="setFormListener($event)"> </app-form>
+      }
+    </div>
+    <div class="footer">
+      <button class="reset" (click)="reset()">Reset</button>
+      <button class="submit" [disabled]="addDisabled" (click)="addControl()">Add</button>
+    </div>
+  </div>
+  <app-form
+    id="outputForm"
+    [class.has-basis]="outputFormConfig.controls.length"
+    #outputForm
+    [config]="outputFormConfig"
+    (reset)="outputValue = undefined"
+  ></app-form>
   @if (outputFormConfig.controls.length) {
     <div class="footer">
       <div>
@@ -32,7 +45,7 @@
         <button class="submit" (click)="submitForm()">Submit</button>
       </div>
     </div>
-    <div class="output" #output>
+    <div class="output-data" #output>
       @if (outputValue) {
         <pre><code>{{ outputValue }}</code></pre>
       } @else {

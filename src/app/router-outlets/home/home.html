@@ -1,13 +1,19 @@
-<img class="logo" ngSrc="assets/logo_white.svg" width="300" height="300" priority />
-<h1 class="title">Tensegrity</h1>
-<div class="definition">
-  A structural principle using compressed components (which do not touch each other) inside a
-  network of continuous tension.
-</div>
-
-<div class="buttons">
-  <button class="primary" (click)="navigate('form')">Form</button>
-  <button class="primary" (click)="navigate('context')">Dynamic Context</button>
-  <button class="primary" (click)="navigate('modal')">Service-based Modal</button>
-  <button class="primary" (click)="navigate('tabs')">Tabs</button>
-</div>
+<section class="navigation">
+  <div class="navigation-header" (click)="navigate('startPage')">
+    <img class="logo" ngSrc="assets/logo_light.svg" width="30" height="30" priority />
+    <span class="title">Tensegrity</span>
+  </div>
+  <ul>
+    <li [class.active]="stringRoute === 'form'" (click)="navigate('form')">Form</li>
+    <li [class.active]="stringRoute === 'context'" (click)="navigate('context')">
+      Dynamic Context
+    </li>
+    <li [class.active]="stringRoute === 'modal'" (click)="navigate('modal')">
+      Service-based Modal
+    </li>
+    <li [class.active]="stringRoute === 'tabs'" (click)="navigate('tabs')">Tabs</li>
+  </ul>
+</section>
+<section class="outlet">
+  <app-context [component]="currentRoute" (componentInstance)="loadingRoute = false"></app-context>
+</section>

@@ -1,5 +1,6 @@
 import {
   Component,
+  inject,
   input,
   isWritableSignal,
   OnChanges,
@@ -11,23 +12,49 @@ import {
 } from '@angular/core';
 import { Textbox } from '../textbox/textbox';
 import { Chip } from '../../chip/chip';
-import { Control, SelectBuilderControl, SelectControl, SelectOption } from '../../../models';
-import { Validators } from '@angular/forms';
+import { Control, SelectBuilderControl, SelectOption } from '../../../models';
+import { FormGroupDirective, Validators } from '@angular/forms';
 import { Icon } from '../../icon/icon';
+import { ModalComponent } from '../../modal/modal.component';
+import { ModalService } from '../../../services/modal';
 
 @Component({
-  selector: 'app-select-builder',
-  imports: [Textbox, Chip, Icon],
-  templateUrl: './select-builder.html',
-  styleUrl: './select-builder.scss',
+  imports: [Textbox],
+  template: `
+    <app-textbox #value [control]="valueCtrl" (update)="pendingOption.value = $event"></app-textbox>
+    <app-textbox
+      #displayValue
+      [control]="displayValueCtrl"
+      (update)="pendingOption.displayValue = $event"
+    ></app-textbox>
+    <div class="actions">
+      <button class="reset" (click)="reset()">Reset</button>
+      <button class="primary" [class.disabled]="!pendingOption.value" (click)="addItem()">
+        Add
+      </button>
+    </div>
+  `,
+  styles: `
+    :host {
+      padding: 1rem;
+      display: block;
+
+      .actions {
+        display: flex;
+        margin-top: 1rem;
+        justify-content: flex-end;
+      }
+    }
+  `,
+  providers: [FormGroupDirective],
 })
-export class SelectBuilder implements OnInit, OnChanges, OnDestroy {
-  control = input<SelectBuilderControl>();
-  presetOptions = input<SelectOption[]>();
-  setOptions = output<SelectOption[]>({ alias: 'options' });
+class ChipForm {
+  modal = input<ModalComponent>();
 
   @ViewChild('value') valueBox!: Textbox;
   @ViewChild('displayValue') displayValueBox!: Textbox;
+
+  pendingOption = {} as SelectOption;
 
   protected valueCtrl = new Control({
     name: 'value',
@@ -40,7 +67,30 @@ export class SelectBuilder implements OnInit, OnChanges, OnDestroy {
     label: 'Display Value',
   });
 
-  pendingOption = {} as SelectOption;
+  addItem() {
+    this.modal()?.close(this.pendingOption);
+  }
+
+  reset() {
+    this.pendingOption = {} as SelectOption;
+    this.valueBox.clear();
+    this.displayValueBox.clear();
+  }
+}
+
+@Component({
+  selector: 'app-select-builder',
+  imports: [Chip, Icon],
+  templateUrl: './select-builder.html',
+  styleUrl: './select-builder.scss',
+})
+export class SelectBuilder implements OnInit, OnChanges, OnDestroy {
+  control = input<SelectBuilderControl>();
+  presetOptions = input<SelectOption[]>();
+  setOptions = output<SelectOption[]>({ alias: 'options' });
+
+  private modalService = inject(ModalService);
+
   protected options = new Map<string, SelectOption>();
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -65,13 +115,19 @@ export class SelectBuilder implements OnInit, OnChanges, OnDestroy {
   }
 
   addOption() {
-    const newValue = String(this.pendingOption.value);
-    if (newValue.length && !this.options.has(newValue))
-      this.options.set(newValue, this.pendingOption);
-    this.pendingOption = {} as SelectOption;
-    this.valueBox.clear();
-    this.displayValueBox.clear();
-    this.setOptions.emit(Array.from(this.options.values()));
+    const modalRef = this.modalService.open(ChipForm, {
+      hostSelector: document.querySelector('.outlet'),
+    });
+    modalRef.afterClose.subscribe((value) => {
+      if (!value) return;
+
+      const newOption = value as SelectOption;
+
+      if (!this.options.has(String(newOption.value))) {
+        this.options.set(String(newOption.value), newOption);
+        this.setOptions.emit(Array.from(this.options.values()));
+      }
+    });
   }
 
   ngOnDestroy(): void {

@@ -1,4 +1,4 @@
-import { Component, ComponentRef, inject, OnInit, Type } from '@angular/core';
+import { Component, ComponentRef, inject, OnInit } from '@angular/core';
 import { Context } from '../../components/context/context';
 import { Chip } from '../../components/chip/chip';
 import { Icon } from '../../components/icon/icon';
@@ -10,7 +10,7 @@ type ComponentType = (typeof components)[number];
 
 @Component({
   selector: 'app-context-setter',
-  imports: [CommonModule, Context, Icon],
+  imports: [CommonModule, Context],
   templateUrl: './context-setter.html',
   styleUrl: './context-setter.scss',
 })

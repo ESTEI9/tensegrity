@@ -1,5 +1,4 @@
 import { ChangeDetectorRef, Component, inject, input, output } from '@angular/core';
-import { Icon } from '../../components/icon/icon';
 import { Router } from '@angular/router';
 import { TabsComponent } from '../../components/tabs/tabs.component';
 import { Control, SelectControl, TabConfig, TabsConfig } from '../../models';
@@ -37,7 +36,7 @@ class Content3 {
 
 @Component({
   selector: 'app-tabs-route',
-  imports: [Icon, TabsComponent, FormsModule, Textbox, ReactiveFormsModule, Select],
+  imports: [TabsComponent, FormsModule, Textbox, ReactiveFormsModule, Select],
   templateUrl: './tabs-route.component.html',
   styleUrl: './tabs-route.component.scss',
   providers: [FormGroupDirective],
@@ -113,7 +112,6 @@ export class TabsRouteComponent {
   }
 
   setActiveTab(tabName: unknown) {
-    console.log(tabName);
     this.activeTab = String(tabName);
   }
 }

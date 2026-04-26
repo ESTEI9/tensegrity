@@ -1,10 +1,12 @@
 :host {
+  position: relative;
+
   .options {
     min-height: 4.5rem;
-    background: var(--white-15);
-    margin: 1rem 0;
+    background: var(--white-10);
     border-radius: 0.25rem;
     padding: 0.5rem;
+    padding-bottom: 3rem;
 
     app-chip {
       margin: 0.5rem;
@@ -17,6 +19,10 @@
     background-color: var(--blue-40);
     color: var(--text-color);
     padding: 0.5rem;
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    margin-left: 0;
 
     &:hover {
       background-color: var(--blue-50);

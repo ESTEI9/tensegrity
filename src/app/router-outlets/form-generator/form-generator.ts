@@ -38,6 +38,7 @@ export class FormGenerator {
   protected router = inject(Router);
 
   controlTypes = ControlTypes;
+  protected formExpanded = true;
 
   private nameControl = new Control({ name: 'name', label: 'Control Name' });
   private labelControl = new Control({ name: 'label', label: 'Control Label' });
@@ -202,5 +203,9 @@ export class FormGenerator {
 
   submitForm() {
     this.outputValue = JSON.stringify(this.outputForm.value, null, 2);
+  }
+
+  toggleForm() {
+    this.formExpanded = !this.formExpanded;
   }
 }

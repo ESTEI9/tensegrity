@@ -155,9 +155,10 @@ export class Select implements OnChanges, ControlValueAccessor {
   clickListener(target: EventTarget | null) {
     // if current target is not in select, close list
     const targetEl = target as HTMLElement;
-    const inSelect = !!targetEl.closest('app-select');
+    const inSelectList = !!targetEl.closest('.select-list');
+    const inTextBox = targetEl.closest('.text-box') === this.textBox.textBox?.nativeElement;
 
-    if (!inSelect) {
+    if (!(inSelectList || inTextBox)) {
       this.listOpen = false;
       this.filteredOptions = this.initialOptions;
     }

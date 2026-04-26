@@ -40,7 +40,7 @@ export class ModalService {
     const modalComponentRef = createComponent(ModalComponent, options);
     this.appRef.attachView(modalComponentRef.hostView);
 
-    const hostElement = document.querySelector(config?.hostSelector ?? 'app-root');
+    const hostElement = config?.hostSelector ?? document.querySelector('app-root');
 
     hostElement!.appendChild((modalComponentRef.hostView as any).rootNodes[0]);
 

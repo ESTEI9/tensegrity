@@ -1,26 +1,17 @@
-import {
-  ChangeDetectorRef,
-  Component,
-  ComponentRef,
-  inject,
-  input,
-  OnDestroy,
-  output,
-} from '@angular/core';
+import { ChangeDetectorRef, Component, inject, input, output } from '@angular/core';
 import { ModalService } from '../../services/modal';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ModalConfig } from '../../models';
 import { Router } from '@angular/router';
-import { Icon } from '../../components/icon/icon';
 
 @Component({
   template: `
     This is some example projected content for the modal. What data do you want to close with?
     <div style="display: flex; flex-direction: column; margin-top: 1rem;">
       <input [(ngModel)]="data" />
-      <div style="display: flex; justify-content: center;">
+      <div style="display: flex; justify-content: center; margin: 1rem 0">
         <button class="primary" style="margin-right: 1rem" (click)="sendData()">
           Send Data Now!
         </button>
@@ -67,7 +58,7 @@ class ExampleComponent {
 
 @Component({
   selector: 'app-service-based-modal',
-  imports: [FormsModule, CommonModule, Icon],
+  imports: [FormsModule, CommonModule],
   templateUrl: './service-based-modal.html',
   styleUrl: './service-based-modal.scss',
 })
@@ -83,7 +74,7 @@ export class ServiceBasedModal {
     this.modalRef = this.modalService.open(
       ExampleComponent,
       new ModalConfig({
-        hostSelector: '#modalContainer',
+        hostSelector: document.getElementById('modalContainer'),
       }),
     );
     this.closeMsg = '';

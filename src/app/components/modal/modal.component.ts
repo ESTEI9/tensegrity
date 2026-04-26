@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   ComponentRef,
   input,
@@ -7,8 +6,6 @@ import {
   output,
   OutputEmitterRef,
   Type,
-  ViewChild,
-  ViewContainerRef,
 } from '@angular/core';
 import { Context } from '../context/context';
 import { ModalConfig } from '../../models';

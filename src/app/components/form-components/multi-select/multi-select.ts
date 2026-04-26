@@ -185,9 +185,10 @@ export class MultiSelect implements OnChanges, ControlValueAccessor {
   clickListener(target: EventTarget | null) {
     // if current target is not in select, close list
     const targetEl = target as HTMLElement;
-    const inSelect = !!targetEl.closest('app-multi-select');
+    const inSelectList = !!targetEl.closest('.select-list');
+    const inTextBox = targetEl.closest('.text-box') === this.searchBox.textBox?.nativeElement;
 
-    if (!inSelect) {
+    if (!(inSelectList || inTextBox)) {
       this.listOpen = false;
 
       setTimeout(() => {

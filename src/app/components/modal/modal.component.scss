@@ -1,7 +1,5 @@
 :host {
-  height: 70vh;
-  width: 60vw;
-  min-height: 400px;
+  width: calc(100% - 2rem);
   display: flex;
   flex-direction: column;
   border: 1px solid var(--white-60);
@@ -12,6 +10,7 @@
   transform: translate(-50%, -50%);
   top: 50%;
   background-color: var(--white-20);
+  max-width: 800px;
 
   .header {
     display: flex;

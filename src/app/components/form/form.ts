@@ -174,8 +174,6 @@ export class Form implements OnChanges {
 
     newOptions.length > 0 ? selectControl.enable() : selectControl.disable();
 
-    console.log(targetSelect, selectControl, newOptions);
-
     this.cd.detectChanges();
   }
 
