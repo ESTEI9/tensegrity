@@ -24,7 +24,7 @@
         <app-form #configForm [config]="controlConfig" (form)="setFormListener($event)"> </app-form>
       }
     </div>
-    <div class="footer">
+    <div class="control-actions">
       <button class="reset" (click)="reset()">Reset</button>
       <button class="submit" [disabled]="addDisabled" (click)="addControl()">Add</button>
     </div>

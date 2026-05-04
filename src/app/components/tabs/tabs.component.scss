@@ -3,6 +3,7 @@
 
   .labels {
     display: flex;
+    overflow-x: auto;
 
     .tab-label {
       padding: 0.5rem 1rem;
