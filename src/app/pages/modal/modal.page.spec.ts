@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FormGenerator } from './form-generator';
+import { ModalPage } from './modal.page';
 
-describe('FormGenerator', () => {
-  let component: FormGenerator;
-  let fixture: ComponentFixture<FormGenerator>;
+describe('ModalPage', () => {
+  let component: ModalPage;
+  let fixture: ComponentFixture<ModalPage>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FormGenerator]
-    })
-    .compileComponents();
+      imports: [ModalPage],
+    }).compileComponents();
 
-    fixture = TestBed.createComponent(FormGenerator);
+    fixture = TestBed.createComponent(ModalPage);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

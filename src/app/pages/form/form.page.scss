@@ -1,0 +1,23 @@
+app-form#outputForm {
+  padding: 0 1rem;
+  overflow: auto;
+  flex-basis: 0;
+
+  &.has-basis {
+    flex-basis: calc(100% - 35px);
+  }
+}
+
+.footer {
+  padding: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  flex-basis: 35px;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  :host {
+    flex-direction: column;
+  }
+}

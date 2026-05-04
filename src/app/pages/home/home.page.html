@@ -1,0 +1,25 @@
+@let useTabs = !['startPage', undefined].includes(stringRoute);
+
+<section class="mobile-navigation">
+  <button class="menu-trigger icon" (click)="navigationIsOpen = true">
+    <img class="logo" ngSrc="assets/logo_light.svg" width="30" height="30" priority />
+    <span class="title">{{ title || 'Tensegrity' }}</span>
+  </button>
+</section>
+<section class="overlay" [class.on]="navigationIsOpen" (click)="navigationIsOpen = false"></section>
+<section #navigation class="navigation" [class.open]="navigationIsOpen">
+  <div class="navigation-header" (click)="navigate('startPage')">
+    <img class="logo" ngSrc="assets/logo_light.svg" width="30" height="30" priority />
+    <span class="title">Tensegrity</span>
+  </div>
+  <ul>
+    <li [class.active]="stringRoute === 'form'" (click)="navigate('form')">Form</li>
+    <li [class.active]="stringRoute === 'context'" (click)="navigate('context')">Context</li>
+    <li [class.active]="stringRoute === 'modal'" (click)="navigate('modal')">Modal</li>
+    <li [class.active]="stringRoute === 'tabs'" (click)="navigate('tabs')">Tabs</li>
+  </ul>
+</section>
+<section class="outlet" [class.has-tabs]="useTabs">
+  <app-context [component]="currentRoute" (componentRef)="setTabs($event)"></app-context>
+  <app-tabs #tabs [config]="tabsConfig" (outputs)="handleTabOutputs($event)"></app-tabs>
+</section>

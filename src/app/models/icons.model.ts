@@ -5,6 +5,7 @@ export const iconNames = [
   'token',
   'keyboard_arrow_down',
   'keyboard_arrow_up',
+  'menu',
 ] as const;
 
 export type IconName = (typeof iconNames)[number];

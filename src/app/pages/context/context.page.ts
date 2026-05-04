@@ -1,29 +1,44 @@
-import { Component, ComponentRef, inject, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ComponentRef,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { Context } from '../../components/context/context';
 import { Chip } from '../../components/chip/chip';
 import { Icon } from '../../components/icon/icon';
-import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { Subject } from 'rxjs';
 
 const components = [Chip, Icon] as const;
 type ComponentType = (typeof components)[number];
 
 @Component({
-  selector: 'app-context-setter',
+  selector: 'app-context-page',
   imports: [CommonModule, Context],
-  templateUrl: './context-setter.html',
-  styleUrl: './context-setter.scss',
+  templateUrl: './context.page.html',
+  styleUrl: './context.page.scss',
 })
-export class ContextSetter implements OnInit {
+export class ContextPage implements OnInit, AfterViewInit {
+  @ViewChild('documentation') documentation: TemplateRef<unknown> | undefined;
+  @ViewChild('configuration') configuration: TemplateRef<unknown> | undefined;
+  @ViewChild('output') output: TemplateRef<unknown> | undefined;
+
   protected componentStrings = ['chip', 'icon'] as const;
   protected currentContext: ComponentType | undefined;
   protected stringContext: string | undefined;
   protected projectedContent: Node | Node[] | string | undefined;
 
-  protected router = inject(Router);
+  afterViewInitHook = new Subject<void>();
 
   ngOnInit(): void {
     this.setInstance('chip');
+  }
+
+  ngAfterViewInit(): void {
+    this.afterViewInitHook.next();
   }
 
   setInstance(key: string) {
@@ -46,8 +61,8 @@ export class ContextSetter implements OnInit {
     })();
   }
 
-  setOutputs(ref$: ComponentRef<unknown>) {
-    const instance = ref$.instance as ComponentType;
+  setOutputs(ref: ComponentRef<unknown>) {
+    const instance = ref.instance as ComponentType;
 
     if (instance instanceof Chip) {
       (instance as Chip).delete.subscribe(() => {

@@ -1,4 +1,6 @@
 :host {
+  height: 100%;
+
   .labels {
     display: flex;
 
@@ -7,8 +9,8 @@
       background-color: var(--white-20);
       margin-right: 2px;
       cursor: pointer;
-      border-top-right-radius: 0.25rem;
-      border-top-left-radius: 0.25rem;
+      text-transform: uppercase;
+      font-size: small;
 
       &:last-child {
         border-right: 0;
@@ -17,15 +19,28 @@
       &.active {
         background-color: var(--blue-30);
       }
+
+      &.disabled {
+        pointer-events: none;
+        color: var(--white-15);
+        background-color: var(--white-25);
+      }
     }
   }
 
-  #tabsContainer {
+  > #tabsContainer {
     background-color: var(--white-20);
     padding: 1rem;
-    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 
     ::ng-deep {
+      app-template {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
       .hidden {
         display: block;
         height: 0;

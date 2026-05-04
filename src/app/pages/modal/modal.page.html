@@ -1,0 +1,28 @@
+<ng-template #documentation>
+  The material modal, while really awesome for most applications, sometimes lacks the nuance to
+  handle business-specific logic in some circumstances. For the most part, there are decent
+  workarounds, but making my own has sometimes been easier.
+</ng-template>
+<!-- TODO -->
+<!-- <ng-template #configuration>
+
+</ng-template> -->
+<ng-template #output>
+  <div class="actions">
+    <button class="primary" [disabled]="modalRef" (click)="open()">Open Modal</button>
+    <button class="reset" [disabled]="!modalRef" (click)="close()">Close Modal</button>
+  </div>
+
+  <div id="modalContainer">
+    <p style="text-align: center; font-style: italic">Lorem ipsum dolor sit amet.</p>
+  </div>
+</ng-template>
+<ng-template #consoleOutput>
+  <div class="console">
+    @if (closeMsg) {
+      <pre><code>{{ closeMsg }}</code></pre>
+    } @else {
+      <div class="placeholder">Modal data will appear here.</div>
+    }
+  </div>
+</ng-template>

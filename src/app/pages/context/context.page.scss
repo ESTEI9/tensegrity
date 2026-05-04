@@ -1,0 +1,14 @@
+app-context {
+  ::ng-deep {
+    app-chip {
+      background-color: var(--blue-40);
+      font-size: small;
+    }
+
+    & > app-icon {
+      span {
+        font-size: 5rem;
+      }
+    }
+  }
+}

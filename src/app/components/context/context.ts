@@ -1,14 +1,19 @@
 import {
   Component,
   ComponentRef,
+  DestroyRef,
+  inject,
   input,
   OnChanges,
+  OnInit,
   output,
   SimpleChanges,
   Type,
   ViewContainerRef,
 } from '@angular/core';
 import { ContentDirective } from '../../directives/content';
+import { BehaviorSubject } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-context',
@@ -16,12 +21,14 @@ import { ContentDirective } from '../../directives/content';
   templateUrl: './context.html',
   styleUrl: './context.scss',
 })
-export class Context<T> implements OnChanges {
-  component = input.required<T>();
+export class Context<T> implements OnChanges, OnInit {
+  component = input.required<T | BehaviorSubject<T>>();
   /** any projectable content for ng-content */
   content = input<Node | Node[] | string>();
   componentInputs = input<{ [x: string]: unknown }>();
-  componentInstance = output<ComponentRef<Type<T>>>();
+  compRefOutput = output<ComponentRef<Type<T>>>({ alias: 'componentRef' });
+
+  private destroyRef = inject(DestroyRef);
 
   private contentRef: ViewContainerRef | undefined;
   private componentRef: ComponentRef<unknown> | undefined;
@@ -34,6 +41,14 @@ export class Context<T> implements OnChanges {
     if (component) this.setComponent();
   }
 
+  ngOnInit(): void {
+    const component = this.component();
+
+    if (component instanceof BehaviorSubject) {
+      component.pipe(takeUntilDestroyed(this.destroyRef)).subscribe(() => this.setComponent());
+    }
+  }
+
   buildContents(contentRef: ViewContainerRef) {
     this.contentRef = contentRef;
     this.setComponent();
@@ -44,11 +59,15 @@ export class Context<T> implements OnChanges {
 
     this.contentRef.clear();
     const projectableNodes = this.getProjectableNodes();
-    this.componentRef = this.contentRef.createComponent(this.component() as Type<T>, {
+    const component =
+      this.component() instanceof BehaviorSubject
+        ? (this.component() as BehaviorSubject<Type<T>>).value
+        : (this.component() as Type<T>); // behaviorsubject for handling dynamic tab config
+    this.componentRef = this.contentRef.createComponent(component, {
       projectableNodes,
     }) as ComponentRef<T>;
     this.setComponentInputs();
-    this.componentInstance.emit(this.componentRef as ComponentRef<Type<T>>);
+    this.compRefOutput.emit(this.componentRef as ComponentRef<Type<T>>);
   }
 
   // TODO: Verify works with content projected slots

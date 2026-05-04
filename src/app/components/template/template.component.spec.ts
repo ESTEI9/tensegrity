@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TabsRouteComponent } from './tabs-route.component';
+import { ConfigurationComponent } from './configuration.component';
 
-describe('TabsRouteComponent', () => {
-  let component: TabsRouteComponent;
-  let fixture: ComponentFixture<TabsRouteComponent>;
+describe('ConfigurationComponent', () => {
+  let component: ConfigurationComponent;
+  let fixture: ComponentFixture<ConfigurationComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TabsRouteComponent]
+      imports: [ConfigurationComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(TabsRouteComponent);
+    fixture = TestBed.createComponent(ConfigurationComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

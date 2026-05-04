@@ -1,5 +1,6 @@
 import {
   AfterViewInit,
+  ChangeDetectorRef,
   Component,
   ComponentRef,
   ElementRef,
@@ -26,9 +27,11 @@ export class TabsComponent implements AfterViewInit {
   outputs = output<{ type: string; event: unknown }>();
 
   private elementRef = inject(ElementRef);
+  private cd = inject(ChangeDetectorRef);
 
   protected activeTabName: string = '';
   private tabsContainer: ViewContainerRef | undefined;
+  protected disabledTabs = new Set<string>();
   tabInstances = new Map<string, ComponentRef<unknown>>();
 
   tabsLoaded = signal(false);
@@ -85,6 +88,7 @@ export class TabsComponent implements AfterViewInit {
     this.setTabContents(componentRef, config, containerEl);
 
     if (!this.tabInstances.has(config.tabName)) this.tabInstances.set(config.tabName, componentRef);
+    if (config.disabled) this.disabledTabs.add(config.tabName);
 
     return componentRef;
   }
@@ -190,5 +194,13 @@ export class TabsComponent implements AfterViewInit {
 
   setTabInstance(tabName: string, ref: ComponentRef<Type<unknown>>) {
     this.tabInstances.set(tabName, ref);
+  }
+
+  disableTab(tabName: string) {
+    this.disabledTabs.add(tabName);
+  }
+
+  enableTab(tabName: string) {
+    this.disabledTabs.delete(tabName);
   }
 }

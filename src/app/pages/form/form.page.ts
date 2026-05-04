@@ -1,12 +1,5 @@
-import { Component, ElementRef, inject, signal, ViewChild } from '@angular/core';
-import { Form } from '../../components';
-import {
-  FormArray,
-  FormControl,
-  FormGroupDirective,
-  FormsModule,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { AfterViewInit, Component, signal, TemplateRef, ViewChild } from '@angular/core';
+import { FormArray, FormGroupDirective, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   Control,
   ControlType,
@@ -18,24 +11,27 @@ import {
   SelectOption,
 } from '../../models';
 import { Select } from '../../components/form-components';
-import { shareReplay, tap } from 'rxjs';
-import { Icon } from '../../components/icon/icon';
-import { Router } from '@angular/router';
+import { shareReplay, Subject, tap } from 'rxjs';
+import { Form } from '../../components';
 
 @Component({
-  selector: 'app-form-generator',
-  imports: [Form, FormsModule, ReactiveFormsModule, Select, Icon],
-  templateUrl: './form-generator.html',
-  styleUrl: './form-generator.scss',
+  selector: 'app-form-page',
+  imports: [Form, FormsModule, ReactiveFormsModule, Select],
+  templateUrl: './form.page.html',
+  styleUrl: './form.page.scss',
   providers: [FormGroupDirective],
 })
-export class FormGenerator {
+export class FormPage implements AfterViewInit {
+  @ViewChild('documentation') documentation: TemplateRef<unknown> | undefined;
+  @ViewChild('configuration') configuration: TemplateRef<unknown> | undefined;
+  @ViewChild('output') output: TemplateRef<unknown> | undefined;
+  @ViewChild('consoleOutput') consoleOutput: TemplateRef<unknown> | undefined;
+
   @ViewChild('typeSelect') typeSelect!: Select;
   @ViewChild('configForm') configForm!: Form;
   @ViewChild('outputForm') outputForm!: Form;
-  @ViewChild('output') output!: ElementRef<HTMLDivElement>;
 
-  protected router = inject(Router);
+  afterViewInitHook = new Subject<void>();
 
   controlTypes = ControlTypes;
   protected formExpanded = true;
@@ -109,6 +105,10 @@ export class FormGenerator {
         };
       }),
     });
+  }
+
+  ngAfterViewInit(): void {
+    this.afterViewInitHook.next();
   }
 
   setControlConfig(option: SelectOption) {

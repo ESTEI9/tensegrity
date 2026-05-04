@@ -1,6 +1,4 @@
-<div class="documentation">
-  <h1>Context</h1>
-
+<ng-template #documentation>
   A context component is one that can switch internal components (context) at runtime. Why would we
   need such a thing?
 
@@ -15,23 +13,23 @@
   <h4>Lazy Loading</h4>
   You load the content when you need it; it doesn't have to be pre-rendered or preserved (though it
   can with multiple context components, if you wish).
-</div>
-<div class="output">
-  <h3>Options</h3>
-  <div class="buttons-container">
-    @for (context of componentStrings; track context) {
-      <button
-        [ngClass]="{ primary: stringContext === context, reset: stringContext !== context }"
-        (click)="setInstance(context)"
-      >
-        {{ context }}
-      </button>
-    }
-  </div>
+</ng-template>
 
+<ng-template #configuration>
+  @for (context of componentStrings; track context) {
+    <button
+      [ngClass]="{ primary: stringContext === context, reset: stringContext !== context }"
+      (click)="setInstance(context)"
+    >
+      {{ context }}
+    </button>
+  }
+</ng-template>
+
+<ng-template #output>
   <app-context
     [component]="currentContext"
     [content]="projectedContent"
-    (componentInstance)="setOutputs($event)"
+    (componentRef)="setOutputs($event)"
   ></app-context>
-</div>
+</ng-template>

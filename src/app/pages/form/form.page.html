@@ -1,18 +1,19 @@
-<div class="documentation">
-  <h1>Dynamic Forms</h1>
-  Forms can be generated using a static config & flexible exposed functions such as
-  <code>addControl()</code>. <br /><br />
-  Doing this enables users to create forms that can build in the DOM as opposed to show or hide form
-  fields based on user input.
-  <br /><br />Changing controls notifies the parent component, which then can listen to the
-  resultant form's controls <code>valueChanges</code> observable for custom callbacks.
-</div>
-<div class="output">
+<ng-template #documentation>
+  <p>
+    Forms can be generated using a static config & flexible exposed functions such as
+    <code>addControl()</code>.
+  </p>
+  <p>
+    Doing this enables users to create forms that can build in the DOM as opposed to show or hide
+    form fields based on user input.
+  </p>
+  <p>
+    Changing controls notifies the parent component, which then can listen to the resultant form's
+    controls <code>valueChanges</code> observable for custom callbacks.
+  </p>
+</ng-template>
+<ng-template #configuration>
   <div class="config-form">
-    <div class="title" (click)="toggleForm()">
-      <h3>Form Generator</h3>
-      <app-icon [class.inverted]="!formExpanded"> keyboard_arrow_up </app-icon>
-    </div>
     <div class="form" [class.hidden]="!formExpanded">
       <app-select
         #typeSelect
@@ -28,6 +29,9 @@
       <button class="submit" [disabled]="addDisabled" (click)="addControl()">Add</button>
     </div>
   </div>
+</ng-template>
+
+<ng-template #output>
   <app-form
     id="outputForm"
     [class.has-basis]="outputFormConfig.controls.length"
@@ -45,14 +49,17 @@
         <button class="submit" (click)="submitForm()">Submit</button>
       </div>
     </div>
-    <div class="output-data" #output>
-      @if (outputValue) {
-        <pre><code>{{ outputValue }}</code></pre>
-      } @else {
-        <div class="placeholder">Form output will appear here.</div>
-      }
-    </div>
   } @else {
     <div class="placeholder">Form will appear here.</div>
   }
-</div>
+</ng-template>
+
+<ng-template #consoleOutput>
+  <div class="console">
+    @if (outputValue) {
+      <pre><code>{{ outputValue }}</code></pre>
+    } @else {
+      <div class="placeholder">Form output will appear here.</div>
+    }
+  </div>
+</ng-template>

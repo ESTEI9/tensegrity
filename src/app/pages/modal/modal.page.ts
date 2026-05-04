@@ -1,10 +1,19 @@
-import { ChangeDetectorRef, Component, inject, input, output } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  inject,
+  input,
+  output,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { ModalService } from '../../services/modal';
 import { ModalComponent } from '../../components/modal/modal.component';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ModalConfig } from '../../models';
-import { Router } from '@angular/router';
+import { Subject } from 'rxjs';
 
 @Component({
   template: `
@@ -57,18 +66,28 @@ class ExampleComponent {
 }
 
 @Component({
-  selector: 'app-service-based-modal',
+  selector: 'app-modal-page',
   imports: [FormsModule, CommonModule],
-  templateUrl: './service-based-modal.html',
-  styleUrl: './service-based-modal.scss',
+  templateUrl: './modal.page.html',
+  styleUrl: './modal.page.scss',
 })
-export class ServiceBasedModal {
+export class ModalPage implements AfterViewInit {
+  @ViewChild('documentation') documentation: TemplateRef<unknown> | undefined;
+  @ViewChild('configuration') configuration: TemplateRef<unknown> | undefined;
+  @ViewChild('output') output: TemplateRef<unknown> | undefined;
+  @ViewChild('consoleOutput') consoleOutput: TemplateRef<unknown> | undefined;
+
   private modalService = inject(ModalService);
+  private cd = inject(ChangeDetectorRef);
+
+  afterViewInitHook = new Subject<void>();
+
   modalRef: ModalComponent | undefined;
   closeMsg: string = '';
 
-  private cd = inject(ChangeDetectorRef);
-  protected router = inject(Router);
+  ngAfterViewInit(): void {
+    this.afterViewInitHook.next();
+  }
 
   open() {
     this.modalRef = this.modalService.open(

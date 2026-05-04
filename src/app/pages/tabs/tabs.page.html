@@ -1,13 +1,17 @@
-<div class="documentation">
-  <h1>Tabs</h1>
-  Often times, I find that tabbing systems create a large DOM footprint and don't take advantage of
-  Angular's latent capabilities to dynamically load/unload content. In addition, most tabbing
-  systems have a very fixed layout, where a developer needs to play with a lot of customized CSS to
-  bring about a desired appearance. <br /><br />
-  While there is additional room for configuration, these controls allow you to view how static
-  content vs dynamic content can be generated, then controlled, outside or inside the tabs.
-  <br />
-  <h3>Configuration</h3>
+<ng-template #documentation>
+  <p>
+    Often times, I find that tabbing systems create a large DOM footprint and don't take advantage
+    of Angular's latent capabilities to dynamically load/unload content. In addition, most tabbing
+    systems have a very fixed layout, where a developer needs to play with a lot of customized CSS
+    to bring about a desired appearance.
+  </p>
+  <p>
+    While there is additional room for configuration, these controls allow you to view how static
+    content vs dynamic content can be generated, then controlled, outside or inside the tabs.
+  </p>
+</ng-template>
+
+<ng-template #configuration>
   <form [formGroup]="tabsConfigForm" class="tabs-form">
     <fieldset>
       <legend>Lazy Loaded</legend>
@@ -48,6 +52,7 @@
     ></app-select>
     <button (click)="loadTabs()" class="primary">Generate Tabs</button>
   </form>
+
   @if (tabsConfig && activeTab === 'Tab 2') {
     <app-textbox
       #tab2Control
@@ -65,8 +70,9 @@
       </button>
     </div>
   }
-</div>
-<div class="output">
+</ng-template>
+
+<ng-template #output>
   @if (tabsConfig) {
     <app-tabs
       [config]="tabsConfig"
@@ -76,4 +82,4 @@
   } @else {
     <div class="placeholder">Tabs will appear here.</div>
   }
-</div>
+</ng-template>

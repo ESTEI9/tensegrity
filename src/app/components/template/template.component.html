@@ -1,0 +1,5 @@
+@let ref = templateRef();
+
+@if (ref.value) {
+  <ng-container *ngTemplateOutlet="ref.value"></ng-container>
+}

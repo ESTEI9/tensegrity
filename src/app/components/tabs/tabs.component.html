@@ -5,7 +5,7 @@
       <div
         class="tab-label"
         [class.active]="activeTabName === tab.tabName"
-        [class.disabled]="tab.disabled"
+        [class.disabled]="disabledTabs.has(tab.tabName)"
         (click)="switchTab(tab.tabName)"
       >
         {{ tab.tabName }}

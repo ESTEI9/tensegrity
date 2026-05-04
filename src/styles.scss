@@ -1,6 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
 @use 'theme';
 
+:root {
+  --tablet-width: 768px;
+  --mobile-width: 425px;
+  --mobile-s-width: 360px;
+}
+
 body {
   display: block;
   height: 100vh;
@@ -115,5 +121,33 @@ body {
       pointer-events: none !important;
       color: var(--white-60) !important;
     }
+  }
+
+  .console {
+    flex-grow: 1;
+    white-space: wrap;
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--white-10);
+    padding: 0.5rem 1rem;
+
+    pre {
+      height: 100%;
+      margin-block: 0 0;
+    }
+  }
+
+  .placeholder {
+    color: var(--white-40);
+    text-transform: uppercase;
+    font-family: var(--heading-font);
+    flex: 1;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }

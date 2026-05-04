@@ -1,4 +1,13 @@
-import { ChangeDetectorRef, Component, inject, input, output } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectorRef,
+  Component,
+  inject,
+  input,
+  output,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { TabsComponent } from '../../components/tabs/tabs.component';
 import { Control, SelectControl, TabConfig, TabsConfig } from '../../models';
@@ -9,7 +18,7 @@ import {
   FormsModule,
   ReactiveFormsModule,
 } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { Select, Textbox } from '../../components/form-components';
 
@@ -35,14 +44,21 @@ class Content3 {
 }
 
 @Component({
-  selector: 'app-tabs-route',
+  selector: 'app-tabs-page',
   imports: [TabsComponent, FormsModule, Textbox, ReactiveFormsModule, Select],
-  templateUrl: './tabs-route.component.html',
-  styleUrl: './tabs-route.component.scss',
+  templateUrl: './tabs.page.html',
+  styleUrl: './tabs.page.scss',
   providers: [FormGroupDirective],
 })
-export class TabsRouteComponent {
+export class TabsPage implements AfterViewInit {
+  @ViewChild('documentation') documentation: TemplateRef<unknown> | undefined;
+  @ViewChild('configuration') configuration: TemplateRef<unknown> | undefined;
+  @ViewChild('output') output: TemplateRef<unknown> | undefined;
+
+  afterViewInitHook = new Subject<void>();
+
   protected router = inject(Router);
+
   tab2Content = new BehaviorSubject<string>('This is some dynamic content');
   tab2Data: string | undefined;
 
@@ -69,6 +85,10 @@ export class TabsRouteComponent {
 
   private cd = inject(ChangeDetectorRef);
 
+  ngAfterViewInit(): void {
+    this.afterViewInitHook.next();
+  }
+
   updateTab2() {
     this.tab2Content.next(this.tab2Data ?? '');
     this.tab2Data = undefined;
@@ -83,7 +103,6 @@ export class TabsRouteComponent {
   loadTabs() {
     this.tabsConfig = undefined;
     const formValue = this.tabsConfigForm.value;
-    console.log(formValue.initialTab);
     setTimeout(() => {
       this.tabsConfig = new TabsConfig({
         persistOnSwitch: !!formValue.persistOnSwitch,
