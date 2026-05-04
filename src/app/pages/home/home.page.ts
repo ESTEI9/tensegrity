@@ -34,6 +34,7 @@ import { TemplateComponent } from '../../components/template/template.component'
     :host {
       margin: 0 1rem;
       text-align: center;
+      display: block;
 
       .small {
         font-style: italic;

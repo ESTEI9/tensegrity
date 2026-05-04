@@ -20,10 +20,8 @@ import { Subject } from 'rxjs';
     This is some example projected content for the modal. What data do you want to close with?
     <div style="display: flex; flex-direction: column; margin-top: 1rem;">
       <input [(ngModel)]="data" />
-      <div style="display: flex; justify-content: center; margin: 1rem 0">
-        <button class="primary" style="margin-right: 1rem" (click)="sendData()">
-          Send Data Now!
-        </button>
+      <div class="modal-actions">
+        <button class="primary" (click)="sendData()">Send Data Now!</button>
         <button class="reset" (click)="closeModal()">Close Modal with Data</button>
       </div>
     </div>
@@ -33,6 +31,26 @@ import { Subject } from 'rxjs';
     :host {
       padding: 0 1rem;
       display: block;
+
+      .modal-actions {
+        display: flex;
+        justify-content: center;
+        margin: 1rem 0;
+      }
+
+      @media (max-width: 769px) {
+        .modal-actions {
+          flex-direction: column;
+
+          button {
+            margin-left: 0;
+
+            &:not(:first-child) {
+              margin-top: 0.5rem;
+            }
+          }
+        }
+      }
     }
     input {
       background: var(--white-10);

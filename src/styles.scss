@@ -59,6 +59,9 @@ body {
     border: 1px outset rgba(255, 255, 255, 0.4);
     color: var(--text-color);
     transition: all 0.1s ease-out;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 
     app-icon {
       text-transform: none;
